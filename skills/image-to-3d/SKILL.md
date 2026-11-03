@@ -12,7 +12,7 @@ metadata:
 
 One to four views of one object in, a textured GLB out in 2 to 4 minutes. Static mesh, no rig.
 
-![Three views to a textured model and its clay mesh](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/image-to-3d.jpg)
+![Three views to a textured model and its clay mesh](https://raw.githubusercontent.com/pobidowski/skills/main/assets/image-to-3d.jpg)
 
 **Requires an active Visualizee subscription: Pro or Max.** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=image-to-3d ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
 

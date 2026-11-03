@@ -12,7 +12,7 @@ metadata:
 
 Concept art, sprites, icons and character sheets that match the game's existing style, with true alpha when the asset needs it.
 
-![Key art to character turnaround sheet](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/game-asset-render.jpg)
+![Key art to character turnaround sheet](https://raw.githubusercontent.com/pobidowski/skills/main/assets/game-asset-render.jpg)
 
 **Requires an active Visualizee subscription: Hobby, Pro or Max (new accounts can try a few images on the 400 free credits).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=game-asset-render ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
 
@@ -47,9 +47,9 @@ Character sheet from key art:
 
 Credits per 1024 px image. Plans: Free 400 credits to try (about 5 renders), Hobby $20/mo 7,500, Pro $40/mo 19,250, Max $80/mo 48,000.
 
-| Level | MCP `quality` | Credits at 1K | Use for |
+| Level | `quality` (MCP / REST) | Credits at 1K | Use for |
 |---|---|---|---|
-| Base | `fast` | 80 | concept exploration, no transparency |
+| Base | `fast` / `base` | 80 | concept exploration, no transparency |
 | Pro | `pro` (default) | 150 | sprites, icons, items with real alpha |
 | Ultra | `ultra` | 300 | key art, sheets with fine detail, 4K |
 
@@ -67,12 +67,11 @@ Credits per 1024 px image. Plans: Free 400 credits to try (about 5 renders), Hob
 **REST**
 
 ```bash
-MODEL=$(scripts/vz.sh pick pro)   # a model with transparent_background: true
-cat > body.json <<EOF
+cat > body.json <<'EOF'
 {
   "prompt": "Game asset: a single stylized brass lantern with an amber flame in the hand-painted style of image[0]. One object, whole, centred, three-quarter view, no ground shadow, no text.",
   "images": [{ "url": "https://visualizee.ai/try/game-character-sheet/rec-1-before.jpg" }],
-  "model_id": "$MODEL",
+  "quality": "pro",
   "aspect_ratio": "1:1",
   "background": "transparent"
 }
@@ -80,7 +79,7 @@ EOF
 scripts/vz.sh image body.json | jq -r .image_url | xargs curl -s -o lantern.png
 ```
 
-`vz.sh models` lists which models have `transparent_background: true`.
+`quality` `pro` and `ultra` both support `background: "transparent"`; `scripts/vz.sh models` lists each model's `quality` and `transparent_background`.
 
 ## Slow renders
 

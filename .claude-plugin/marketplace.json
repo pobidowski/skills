@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "visualizee",
-      "source": "./plugins/visualizee",
+      "source": "./",
       "description": "AI rendering for architects, interior designers, product and game designers: photoreal renders from model screenshots and sketches, room restyles, product colorways, transparent game assets, video clips and image-to-3D, via the Visualizee MCP server or REST API.",
       "category": "design",
       "homepage": "https://visualizee.ai",
@@ -21,11 +21,21 @@
         "image-generation",
         "video",
         "3d"
+      ],
+      "strict": false,
+      "version": "1.1.0",
+      "skills": [
+        "./skills/architectural-render",
+        "./skills/interior-restyle",
+        "./skills/product-colorways",
+        "./skills/game-asset-render",
+        "./skills/render-video",
+        "./skills/image-to-3d"
       ]
     }
   ],
   "metadata": {
     "description": "Agent skills and Claude Code plugins by Piotr Obidowski, starting with Visualizee AI rendering.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   }
 }

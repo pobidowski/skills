@@ -12,7 +12,7 @@ metadata:
 
 Turns a model screenshot or sketch into a photoreal render. The geometry, openings and camera stay as designed; light, materials, sky and planting become real.
 
-![Model screenshot to photoreal render](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/architectural-render.jpg)
+![Model screenshot to photoreal render](https://raw.githubusercontent.com/pobidowski/skills/main/assets/architectural-render.jpg)
 
 **Requires an active Visualizee subscription: Hobby, Pro or Max (new accounts can try a few images on the 400 free credits).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=architectural-render ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
 
@@ -47,9 +47,9 @@ Tips that hold up in practice:
 
 Credits per 1024 px image. Plans: Free 400 credits to try (about 5 renders), Hobby $20/mo 7,500, Pro $40/mo 19,250, Max $80/mo 48,000.
 
-| Level | MCP `quality` | Credits at 1K | Use for |
+| Level | `quality` (MCP / REST) | Credits at 1K | Use for |
 |---|---|---|---|
-| Base | `fast` | 80 (107 at 2K) | drafts, many options |
+| Base | `fast` / `base` | 80 (107 at 2K) | drafts, many options |
 | Pro | `pro` (default) | 150 | client renders, best design fidelity per credit |
 | Ultra | `ultra` | 300 (400 at 2K, 500 at 4K) | final hero shots |
 
@@ -66,19 +66,18 @@ Default to **Pro**. Use Base for quick option rounds, Ultra only when the user a
 **REST**
 
 ```bash
-MODEL=$(scripts/vz.sh pick pro)
-cat > body.json <<EOF
+cat > body.json <<'EOF'
 {
   "prompt": "Turn image[0], a SketchUp screenshot of a two-storey house, into a photoreal exterior render at golden hour. Keep the massing, windows, cladding and camera angle exactly as in the model; change only materials to real finishes and add lawn, planting and an evening sky.",
   "images": [{ "url": "https://visualizee.ai/ai-rendering/model-screenshot-before.jpg" }],
-  "model_id": "$MODEL",
+  "quality": "pro",
   "aspect_ratio": "16:9"
 }
 EOF
 scripts/vz.sh image body.json   # prints the status JSON; the render is at .image_url
 ```
 
-For a local file use `"images": [{ "base64": "<base64 of the file>" }]` (JPEG, PNG or WebP, 8 MB max, whole body under 4.5 MB). Always pass `model_id`: without it the API renders on the Ultra model (300 credits).
+For a local file use `"images": [{ "base64": "<base64 of the file>" }]` (JPEG, PNG or WebP, 8 MB max, whole body under 4.5 MB). Leave out `quality` and the API uses Pro; pass `model_id` from `GET /models` only to pin a specific model.
 
 ## Slow renders
 

@@ -12,7 +12,7 @@ metadata:
 
 One accepted product image in, consistent variants out: same product, same angle, new colour, material, background or scene.
 
-![One sneaker, three colorways](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/product-colorways.jpg)
+![One sneaker, three colorways](https://raw.githubusercontent.com/pobidowski/skills/main/assets/product-colorways.jpg)
 
 **Requires an active Visualizee subscription: Hobby, Pro or Max (new accounts can try a few images on the 400 free credits).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=product-colorways ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
 
@@ -43,9 +43,9 @@ One render per variant. Keep the sentence identical across the set except for th
 
 Credits per 1024 px image. Plans: Free 400 credits to try (about 5 renders), Hobby $20/mo 7,500, Pro $40/mo 19,250, Max $80/mo 48,000.
 
-| Level | MCP `quality` | Credits at 1K | Use for |
+| Level | `quality` (MCP / REST) | Credits at 1K | Use for |
 |---|---|---|---|
-| Base | `fast` | 80 | colour exploration, many variants |
+| Base | `fast` / `base` | 80 | colour exploration, many variants |
 | Pro | `pro` (default) | 150 | catalogue images, transparent cutouts |
 | Ultra | `ultra` | 300 | hero images, fine textures, 4K |
 
@@ -63,12 +63,11 @@ Transparent backgrounds need Pro or Ultra. A set of 10 colorways on Base is 800 
 **REST**
 
 ```bash
-MODEL=$(scripts/vz.sh pick pro)
-cat > body.json <<EOF
+cat > body.json <<'EOF'
 {
   "prompt": "Render the sneaker in image[0] as a studio packshot in burgundy suede with a cream sole and laces. Keep its shape, stitching, eyelets, profile and camera angle exactly; change only colours and the upper material. Plain warm grey background, soft shadow.",
   "images": [{ "url": "https://example.com/sneaker-white.jpg" }],
-  "model_id": "$MODEL",
+  "quality": "pro",
   "aspect_ratio": "4:3",
   "customer": "spring-catalogue"
 }
@@ -76,7 +75,7 @@ EOF
 scripts/vz.sh image body.json
 ```
 
-For a transparent PNG add `"background": "transparent"` (Pro or Ultra model only; any other answers `422 background_unsupported` before charging). For catalogue batches run up to 10 requests in parallel per key; an 11th answers `429 concurrency_limit` with `Retry-After`. Always pass `model_id`.
+For a transparent PNG add `"background": "transparent"` (with `quality` `pro` or `ultra`; Base answers `422 background_unsupported` before charging). For catalogue batches run up to 10 requests in parallel per key; an 11th answers `429 concurrency_limit` with `Retry-After`.
 
 ## Slow renders
 

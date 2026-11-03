@@ -12,7 +12,7 @@ metadata:
 
 Turns an accepted still into a 3 to 30 second clip with one deliberate camera move. Video costs far more than images, so this skill always states the price first.
 
-![Still render and the last frame of a 3 s push-in](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/render-video.jpg)
+![Still render and the last frame of a 3 s push-in](https://raw.githubusercontent.com/pobidowski/skills/main/assets/render-video.jpg)
 
 **Requires an active Visualizee subscription: Hobby (720p), Pro (1080p) or Max (4K).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=render-video ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
 
@@ -62,7 +62,7 @@ Natural language, never JSON. For 4 to 8 seconds: a short brief plus a beat time
 ## Run it
 
 1. `render_video` with `prompt`, `ingredientUrls: [stillUrl]`, `quality`, `duration`, `resolution` (`"720p"`, `"1080p"`), `aspectRatio`, and the same `projectName` and `chatName` the still lives in.
-2. Set `audio` only on Pro and Ultra. On Base (Gemini Omni Flash) leave `audio` out entirely: it has no soundtrack, and even `audio: false` is currently refused with "does not support generated audio".
+2. Set `audio` (default on) for Pro and Ultra. Base (Gemini Omni Flash) makes silent clips and ignores `audio`.
 3. Video usually takes 2 to 8 minutes. The call returns `status: pending` with a `generationId` after about 45 seconds; call `get_render` with that id (free, waits up to 45 s per call) until it returns the MP4 URL. Tell the user it is rendering in between.
 4. Never start a second render because the first is slow. It is already paid for; an identical request within 10 minutes returns the same clip.
 

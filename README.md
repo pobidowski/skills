@@ -1,6 +1,6 @@
 # Skills
 
-Agent skills and Claude Code plugins by Piotr Obidowski. They follow the [Agent Skills](https://agentskills.io/specification) format, so they work in Claude Code, Cursor, Codex, Gemini CLI and any agent that reads `SKILL.md`.
+Agent skills by Piotr Obidowski. Every skill is a plain `SKILL.md` folder in [`skills/`](skills/) following the [Agent Skills](https://agentskills.io/specification) format, so it works in Codex, Cursor, Claude Code, Gemini CLI, GitHub Copilot and any agent that reads `SKILL.md`.
 
 ## Visualizee skills
 
@@ -12,37 +12,37 @@ AI rendering for architects, interior designers, product and game designers, pow
 
 Turn a SketchUp, Revit, ArchiCAD or Rhino screenshot, or a hand sketch, into a photoreal render. Massing, windows and camera stay exactly as designed; light, materials, sky and planting become real.
 
-![Model screenshot to photoreal render](plugins/visualizee/assets/architectural-render.jpg)
+![Model screenshot to photoreal render](assets/architectural-render.jpg)
 
 ### interior-restyle
 
 Stage an empty room or restyle a room photo: a new style, wall colour, flooring, cabinets or a single furniture swap. Walls, windows and camera stay as photographed.
 
-![Empty room to staged living room](plugins/visualizee/assets/interior-restyle.jpg)
+![Empty room to staged living room](assets/interior-restyle.jpg)
 
 ### product-colorways
 
 One product image in, consistent variants out: new colours and materials, clean studio packshots, transparent cutouts or lifestyle scenes, with the shape and details kept identical.
 
-![One sneaker, three colorways](plugins/visualizee/assets/product-colorways.jpg)
+![One sneaker, three colorways](assets/product-colorways.jpg)
 
 ### game-asset-render
 
 Props, icons, character turnaround sheets, UI elements and concept art that match your game's style, with real transparent PNGs for sprites and icons.
 
-![Key art to character turnaround sheet](plugins/visualizee/assets/game-asset-render.jpg)
+![Key art to character turnaround sheet](assets/game-asset-render.jpg)
 
 ### render-video
 
 Animate a still into a 3 to 30 second clip: an architectural push-in, a product turntable, a car reveal, a room flythrough. The skill always states the price before rendering.
 
-![Still render and the last frame of a 3 s push-in](plugins/visualizee/assets/render-video.jpg)
+![Still render and the last frame of a 3 s push-in](assets/render-video.jpg)
 
 ### image-to-3d
 
 One to four views of a single object become a textured GLB in 2 to 4 minutes, ready for Unity, Godot, Unreal, Blender or three.js.
 
-![Three views to a textured model and its clay mesh](plugins/visualizee/assets/image-to-3d.jpg)
+![Three views to a textured model and its clay mesh](assets/image-to-3d.jpg)
 
 ## How it works
 
@@ -87,7 +87,7 @@ npx skills add pobidowski/skills                              # choose skills fr
 npx skills add pobidowski/skills --skill architectural-render # a single skill
 ```
 
-**Claude Code**
+**Claude Code** (optional bundle, same skills)
 
 ```
 /plugin marketplace add pobidowski/skills
@@ -98,26 +98,25 @@ npx skills add pobidowski/skills --skill architectural-render # a single skill
 
 ```bash
 git clone https://github.com/pobidowski/skills
-cp -r skills/plugins/visualizee/skills/* ~/.claude/skills/
+cp -r skills/skills/* ~/.claude/skills/   # or your agent's skills folder
 ```
 
-Then connect your Visualizee account as in step 3 above. Full setup and pricing: [plugins/visualizee](plugins/visualizee/).
+Then connect your Visualizee account as in step 3 above.
+
+Real brands are fine in prompts (a paint colour, a car, a sofa). Real people, song names and existing film, game or comic characters are not; Vizzy replaces or declines them. Test results for each skill are in [docs/visualizee-testing.md](docs/visualizee-testing.md).
 
 ## Repository layout
 
 ```
-.claude-plugin/marketplace.json   Claude Code marketplace: one entry per plugin
-plugins/<plugin>/
-  .claude-plugin/plugin.json      plugin manifest
-  README.md                       setup, examples, pricing
-  assets/                         README images
-  shared/                         helpers copied into skills by scripts/sync-shared.sh
-  skills/<skill>/SKILL.md         one folder per skill (plus scripts/ when needed)
-scripts/sync-shared.sh            copies shared helpers into each skill
+skills/<skill>/SKILL.md           one folder per skill, plus scripts/ when it needs a helper
+assets/                           README images
+shared/<group>/                   helpers copied into skills by scripts/sync-shared.sh
+docs/                             test logs and notes
+.claude-plugin/marketplace.json   optional Claude Code bundles that group skills
 ```
 
-To add a plugin: create `plugins/<name>/` with the same shape, add an entry to `.claude-plugin/marketplace.json`, and run `claude plugin validate .`.
+To add a skill: create `skills/<name>/SKILL.md` (the `name` in its frontmatter must match the folder). To bundle it for Claude Code, list it in a plugin entry's `skills` array in `.claude-plugin/marketplace.json`, then run `claude plugin validate .`.
 
 ## Licence
 
-MIT, see [LICENSE](LICENSE). Third-party services used by a skill have their own terms.
+The skill text and scripts are MIT licensed, see [LICENSE](LICENSE). Example images are Visualizee renders, shared for illustration. Services a skill calls have their own terms, for Visualizee the [terms of service](https://visualizee.ai/terms-of-service).

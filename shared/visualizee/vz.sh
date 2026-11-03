@@ -3,14 +3,14 @@
 # Needs: curl, jq, and VISUALIZEE_API_KEY (a vz_live_ key from visualizee.app, Pro or Max plan).
 #
 #   vz.sh models                 List image and 3D models with their credit cost.
-#   vz.sh pick base|pro|ultra    Print the image model_id for a quality level.
 #   vz.sh image BODY.json        POST /render/image, then wait for every render.
 #   vz.sh 3d BODY.json           POST /render/3d, then wait for the model.
 #   vz.sh status RENDER_ID       One status check.
 #   vz.sh wait RENDER_ID         Poll until the render is completed or failed.
 #
 # Results print as JSON (the status endpoint's fields: image_url, model_3d, credits, error).
-# This file is generated from plugins/visualizee/shared/vz.sh; edit it there.
+# Copied into each skill by scripts/sync-shared.sh from shared/visualizee/vz.sh; edit it there.
+# Pick the level in the request body with "quality": "base" | "pro" | "ultra" (default pro).
 
 set -euo pipefail
 
@@ -89,19 +89,7 @@ wait_for() {
 
 case "${1:-}" in
   models)
-    get /models | jq '{images: [.models[] | {id, name, tier, default, credits_at_1024, transparent_background}], models_3d}'
-    ;;
-  pick)
-    level=${2:-}
-    # REST has no quality field yet. The list is best-first: the first entry is the
-    # Ultra model (also the default when model_id is omitted), the first "base"
-    # entry is Base, and Pro is the next transparent-capable model after Ultra.
-    get /models | jq -r --arg level "$level" '
-      .models as $m
-      | if $level == "ultra" then $m[0].id
-        elif $level == "base" then ([$m[] | select(.tier == "base")][0].id)
-        elif $level == "pro" then (([$m[1:][] | select(.transparent_background)] + [$m[1:][] | select(.tier == "pro")])[0].id)
-        else error("use base, pro or ultra") end'
+    get /models | jq '{images: [.models[] | {id, name, quality, tier, default, credits_at_1024, transparent_background}], models_3d}'
     ;;
   image)
     res=$(submit /render/image "${2:?usage: vz.sh image BODY.json}")

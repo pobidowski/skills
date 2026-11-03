@@ -12,7 +12,7 @@ metadata:
 
 Takes a photo of a real room (or an interior model screenshot) and changes only what the user wants changed: furniture, style, colours, finishes. The room itself stays.
 
-![Empty room to staged living room](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/interior-restyle.jpg)
+![Empty room to staged living room](https://raw.githubusercontent.com/pobidowski/skills/main/assets/interior-restyle.jpg)
 
 **Requires an active Visualizee subscription: Hobby, Pro or Max (new accounts can try a few images on the 400 free credits).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=interior-restyle ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
 
@@ -47,9 +47,9 @@ With extra references, say what each one is for: "Use the sofa from image[1] and
 
 Credits per 1024 px image. Plans: Free 400 credits to try (about 5 renders), Hobby $20/mo 7,500, Pro $40/mo 19,250, Max $80/mo 48,000.
 
-| Level | MCP `quality` | Credits at 1K | Use for |
+| Level | `quality` (MCP / REST) | Credits at 1K | Use for |
 |---|---|---|---|
-| Base | `fast` | 80 | quick style options; may shift the camera or window layout |
+| Base | `fast` / `base` | 80 | quick style options; may shift the camera or window layout |
 | Pro | `pro` (default) | 150 | client-facing staging; keeps the room much more faithfully |
 | Ultra | `ultra` | 300 | final, high-resolution hero images |
 
@@ -66,18 +66,17 @@ Default to **Pro** for anything shown to a client or buyer. Base is fine for "sh
 **REST**
 
 ```bash
-MODEL=$(scripts/vz.sh pick pro)
-cat > body.json <<EOF
+cat > body.json <<'EOF'
 {
   "prompt": "Furnish image[0] as a warm Scandinavian living room with a soft grey sofa, wool rug and linen curtains. Keep the walls, windows, doors, floor and camera exactly as in the photo; change only furniture and decor.",
   "images": [{ "url": "https://visualizee.ai/ai-rendering/room-photo-before.jpg" }],
-  "model_id": "$MODEL"
+  "quality": "pro"
 }
 EOF
 scripts/vz.sh image body.json
 ```
 
-`aspect_ratio` defaults to `auto` (matches the photo). Ask for several styles in one call with `"max_renders": 3` and a prompt that says "three variations: Japandi, industrial, coastal". Always pass `model_id`; without it the API uses the Ultra model (300 credits).
+`aspect_ratio` defaults to `auto` (matches the photo). Ask for several styles in one call with `"max_renders": 3` and a prompt that says "three variations: Japandi, industrial, coastal". `quality` defaults to Pro.
 
 ## Slow renders
 
