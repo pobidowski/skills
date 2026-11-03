@@ -6,6 +6,8 @@ Agent skills and Claude Code plugins by Piotr Obidowski. They follow the [Agent 
 
 AI rendering for architects, interior designers, product and game designers, powered by [Visualizee](https://visualizee.ai/?utm_source=agent-skill&utm_medium=skill&utm_campaign=repo-readme). Each skill does one job, tells your agent what to ask you, how to word the request, which quality to pick and what it costs.
 
+> **These skills need an active Visualizee subscription.** The skills are free and open source, but every render runs on your Visualizee account and spends its credits. See [Get a Visualizee subscription](#get-a-visualizee-subscription) below.
+
 ### architectural-render
 
 Turn a SketchUp, Revit, ArchiCAD or Rhino screenshot, or a hand sketch, into a photoreal render. Massing, windows and camera stay exactly as designed; light, materials, sky and planting become real.
@@ -50,6 +52,32 @@ One to four views of a single object become a textured GLB in 2 to 4 minutes, re
 4. **Visualizee renders.** Through the Visualizee MCP server (any plan, sign in once, no key) or the REST API with `VISUALIZEE_API_KEY` (Pro and Max, for scripts and batches). Slow renders are collected when they finish, never started twice.
 5. **You get the file.** An image URL, an MP4 or a GLB, saved into your project if you like. Every render is also in your Visualizee workspace, where you can keep editing it with Vizzy. Failed renders are refunded automatically.
 
+## Get a Visualizee subscription
+
+1. **Pick a plan** at [visualizee.ai/pricing](https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=repo-readme):
+
+   | Plan | Price | Credits a month | What the skills can do |
+   |---|---|---|---|
+   | Hobby | $20/mo | 7,500 | image skills and video up to 720p, through the MCP server |
+   | Pro | $40/mo | 19,250 | everything: image skills, video up to 1080p, image-to-3D, REST API keys |
+   | Max | $80/mo | 48,000 | everything, video up to 4K, larger batches |
+
+   New accounts start on Free with 400 credits (about 5 images) to try the image skills before subscribing. Video, 3D and the REST API need a paid plan.
+
+2. **Sign up and subscribe** at [visualizee.app](https://visualizee.app/?utm_source=agent-skill&utm_medium=skill&utm_campaign=repo-readme), then choose the plan on the Account page.
+
+3. **Connect your agent** to the account, one of:
+   - MCP server (all plans, no key): `claude mcp add --transport http visualizee https://visualizee.app/api/mcp`, then run `/mcp` in Claude Code and sign in with your Visualizee account.
+   - REST API key (Pro and Max): on the Account page open **API**, create a key, and `export VISUALIZEE_API_KEY="vz_live_..."`. Keep it out of git.
+
+Which plan each skill needs:
+
+| Skill | Free trial | Hobby | Pro | Max |
+|---|---|---|---|---|
+| architectural-render, interior-restyle, product-colorways, game-asset-render | yes, a few images | yes | yes | yes |
+| render-video | no | 720p | 1080p | 4K |
+| image-to-3d | no | no | yes | yes |
+
 ## Install
 
 **skills.sh**
@@ -73,13 +101,7 @@ git clone https://github.com/pobidowski/skills
 cp -r skills/plugins/visualizee/skills/* ~/.claude/skills/
 ```
 
-**Connect Visualizee** (once):
-
-```bash
-claude mcp add --transport http visualizee https://visualizee.app/api/mcp
-```
-
-Then run `/mcp` and sign in. Or set `VISUALIZEE_API_KEY` from the Account page at [visualizee.app](https://visualizee.app/?utm_source=agent-skill&utm_medium=skill&utm_campaign=repo-readme) on Pro or Max. Plans: Free (400 credits to try, about 5 images), Hobby $20/mo, Pro $40/mo, Max $80/mo. Full setup and pricing: [plugins/visualizee](plugins/visualizee/).
+Then connect your Visualizee account as in step 3 above. Full setup and pricing: [plugins/visualizee](plugins/visualizee/).
 
 ## Repository layout
 

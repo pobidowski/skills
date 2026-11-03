@@ -14,6 +14,8 @@ Turns an accepted still into a 3 to 30 second clip with one deliberate camera mo
 
 ![Still render and the last frame of a 3 s push-in](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/render-video.jpg)
 
+**Requires an active Visualizee subscription: Hobby (720p), Pro (1080p) or Max (4K).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=render-video ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
+
 ## Pick the path
 
 Video runs **only through the MCP server** (`render_video` and `get_render` tools from a Visualizee server). The REST API v1 renders images and 3D models only.

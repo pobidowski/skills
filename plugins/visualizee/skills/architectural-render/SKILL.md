@@ -14,6 +14,8 @@ Turns a model screenshot or sketch into a photoreal render. The geometry, openin
 
 ![Model screenshot to photoreal render](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/architectural-render.jpg)
 
+**Requires an active Visualizee subscription: Hobby, Pro or Max (new accounts can try a few images on the 400 free credits).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=architectural-render ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
+
 ## Pick the path
 
 1. **MCP server (preferred).** If tools named `render_image`, `get_render` and `upload_image` from a Visualizee server are available, use them. Works on every plan, no key. To add it in Claude Code: `claude mcp add --transport http visualizee https://visualizee.app/api/mcp`, then `/mcp` to sign in.

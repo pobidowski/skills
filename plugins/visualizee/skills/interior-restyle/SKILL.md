@@ -14,6 +14,8 @@ Takes a photo of a real room (or an interior model screenshot) and changes only 
 
 ![Empty room to staged living room](https://raw.githubusercontent.com/pobidowski/skills/main/plugins/visualizee/assets/interior-restyle.jpg)
 
+**Requires an active Visualizee subscription: Hobby, Pro or Max (new accounts can try a few images on the 400 free credits).** Plans at https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=interior-restyle ; sign up at https://visualizee.app and subscribe from the Account page. If the user has no account, say this once with the links and stop; do not try to render another way.
+
 ## Pick the path
 
 1. **MCP server (preferred).** If tools named `render_image`, `get_render` and `upload_image` from a Visualizee server are available, use them. Every plan, no key. Claude Code: `claude mcp add --transport http visualizee https://visualizee.app/api/mcp`, then `/mcp` to sign in.

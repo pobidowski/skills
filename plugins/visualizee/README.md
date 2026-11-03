@@ -4,6 +4,8 @@ AI rendering skills for coding agents. [Visualizee](https://visualizee.ai/?utm_s
 
 Every skill speaks plain language to Vizzy, Visualizee's assistant: one sentence of what changes and what stays.
 
+> **Requires an active Visualizee subscription.** The skills are free and MIT licensed, but every render runs on your Visualizee account and spends its credits. To get one: pick a plan at [visualizee.ai/pricing](https://visualizee.ai/pricing?utm_source=agent-skill&utm_medium=skill&utm_campaign=readme) (Hobby $20/mo, Pro $40/mo, Max $80/mo), sign up at [visualizee.app](https://visualizee.app/?utm_source=agent-skill&utm_medium=skill&utm_campaign=readme) and subscribe from the Account page, then connect your agent as described in [Connect Visualizee](#connect-visualizee). New accounts get 400 free credits (about 5 images) to try the image skills first; video needs Hobby or above, 3D models and the REST API need Pro or Max.
+
 ## Skills
 
 | Skill | Job | Before and after |
